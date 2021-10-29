@@ -1,6 +1,7 @@
 package com.techruch.utilities;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.PageLoadStrategy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -25,7 +26,7 @@ public class Driver {
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver();
+                    driver = new ChromeDriver(new ChromeOptions().setPageLoadStrategy(PageLoadStrategy.NONE));
                     break;
                 case "chrome-headless":     // headless : invisible chrome, your test will be executed.
                     WebDriverManager.chromedriver().setup();
