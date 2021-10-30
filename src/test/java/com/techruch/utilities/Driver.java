@@ -26,7 +26,7 @@ public class Driver {
             switch (browser) {
                 case "chrome":
                     WebDriverManager.chromedriver().setup();
-                    driver = new ChromeDriver(new ChromeOptions().setPageLoadStrategy(PageLoadStrategy.NONE));
+                    driver = new ChromeDriver(new ChromeOptions().setPageLoadStrategy(PageLoadStrategy.EAGER));
                     break;
                 case "chrome-headless":     // headless : invisible chrome, your test will be executed.
                     WebDriverManager.chromedriver().setup();

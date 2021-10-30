@@ -1,5 +1,6 @@
 package com.techruch.tests;
 
+import com.techruch.Pages.ContentPage;
 import com.techruch.Pages.HomePage;
 import com.techruch.Pages.TestBase;
 import com.techruch.utilities.BrowserUtils;
@@ -10,6 +11,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class commencisTest extends TestBase {
 
@@ -57,11 +60,63 @@ dependency management, please do following:
 	b. the links within the news content
 
      */
+
     @Test
     public void test2(){
+        System.out.println(homePage.getArticles.size());
+        homePage.getArticles.get(1).click();
+
+        ContentPage contentPage =new ContentPage();
+
+        Assert.assertEquals(contentPage.newsTitle.getText() + " | TechCrunch", driver.getTitle(),"verify titles");
+
+        String newsUrl = driver.getCurrentUrl();
+
+        int linkNumber =contentPage.contentLinks.size();
+
+        System.out.println("Total links are "+linkNumber);
+
+        for(int i=0;i<linkNumber;i++) {
+
+            WebElement link = contentPage.contentLinks.get(i);
+
+            String url=link.getAttribute("href");
+
+            contentPage.verifyLink(url);
+
+        }
+
+    }
+
+    @Test
+    public void test20(){
+        driver.get("https://www.lambdatest.com/blog/");
+        ContentPage contentPage =new ContentPage();
+
+        List<WebElement> links=driver.findElements(By.tagName("a"));
+        int linkNumber =links.size();
+
+        System.out.println("Total links are "+linkNumber);
+
+        for(int i=0;i<linkNumber;i++) {
+
+            WebElement link = links.get(i);
+
+            String url=link.getAttribute("href");
+
+            System.out.print(i+1 + ": ");
+            contentPage.verifyLink(url);
+
+        }
+
+    }
+
+
+    @Test
+    public void test22(){
 
         System.out.println(homePage.getArticles.size());
-        homePage.getArticles.get(0).click();
+        homePage.getArticles.get(1).click();
 
         Assert.assertEquals(homePage.newsTitle.getText() + " – TechCrunch", driver.getTitle(),"verify titles");
 
@@ -95,10 +150,12 @@ dependency management, please do following:
       //  homePage.getArticles.get(0).click();
     //    homePage.contentLinks.get(1).click();
         driver.get("https://techcrunch.com/2021/10/29/why-facebooks-angry-emoji-should-interest-the-us-sec/");
+        System.out.println(driver.getTitle());
+        System.out.println(driver.getCurrentUrl());
      //   driver.navigate().to("https://www.google.com/");
         driver.navigate().to("https://www.citizen.org/");
         System.out.println(driver.getTitle());
-    //    System.out.println(driver.getCurrentUrl());
+       System.out.println(driver.getCurrentUrl());
         driver.navigate().back();
     }
 
