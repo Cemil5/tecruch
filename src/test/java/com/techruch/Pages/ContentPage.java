@@ -35,13 +35,48 @@ public class ContentPage extends BasePage{
                 System.out.println(linkUrl+" : "+ responseMessage + " : "+ HttpURLConnection.HTTP_NOT_FOUND);
             } else if (responseCode == 403){
                 System.out.println(linkUrl + " : "+  responseCode + " : " + responseMessage);
-            } else if (linkUrl.equals(null) || linkUrl.isEmpty()){
+            } else if (linkUrl.equals(null) || linkUrl.isEmpty() || linkUrl.equals("null") ||linkUrl.contains("null")){
                 System.out.println(linkUrl + ": This URL is either not configured for anchor tag or it is empty");
             } else {
                 System.out.println("OTHER PROBLEM : " + linkUrl + " "+ responseCode + " : " + responseMessage);
             }
         } catch (Exception e) {
-            System.out.println(" CATCH BLOCK : OTHER PROBLEM " + linkUrl);
+            System.out.println(" CATCH BLOCK : OTHER PROBLEM |" + linkUrl + "|");
+          //  e.printStackTrace();
+            e.getMessage();
+        }
+    }
+
+    public static void verifyLink1 (String linkUrl) {
+
+        try
+        {
+            URL url = new URL(linkUrl);
+
+            HttpURLConnection httpURLConnect=(HttpURLConnection)url.openConnection();
+
+            httpURLConnect.setConnectTimeout(3000);
+
+            httpURLConnect.connect();
+
+            int responseCode = httpURLConnect.getResponseCode();
+            String responseMessage = httpURLConnect.getResponseMessage();
+
+            if(responseCode==200) {
+                System.out.println(responseMessage);
+            } else if (responseCode==HttpURLConnection.HTTP_NOT_FOUND){
+                System.out.println(responseMessage + " : "+ HttpURLConnection.HTTP_NOT_FOUND);
+            } else if (responseCode == 403){
+                System.out.println(responseCode + " : " + responseMessage);
+            } else if (linkUrl.equals(null) || linkUrl.isEmpty() || linkUrl.equals("null") ||linkUrl.contains("null")){
+                System.out.println(": This URL is either not configured for anchor tag or it is empty");
+            } else {
+                System.out.println("OTHER PROBLEM : " + linkUrl + " "+ responseCode + " : " + responseMessage);
+            }
+        } catch (Exception e) {
+            System.out.println(" CATCH BLOCK : OTHER PROBLEM |" + linkUrl + "|");
+            //  e.printStackTrace();
+            e.getMessage();
         }
     }
 

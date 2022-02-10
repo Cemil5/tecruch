@@ -102,13 +102,23 @@ dependency management, please do following:
 
             WebElement link = links.get(i);
 
-            String url=link.getAttribute("href");
-
-            System.out.print(i+1 + ": ");
-            contentPage.verifyLink(url);
-
+            String url= link.getAttribute("href");//.trim();
+          //  if (url.equals(null) || url.isEmpty() || url.equals("")){
+          //      System.out.print(i+1 + ": " + url + "|||");
+         //   } else {
+                System.out.print(i + 1 + ":"+ url + "||");
+                contentPage.verifyLink1(url);
+          //  }
         }
 
+    }
+
+    @Test
+    public void amazonTest(){
+        driver.get("https://www.amazon.com/");
+        driver.findElement(By.xpath("//span[@id=aee-xop-dismiss]/input")).click();
+        driver.findElement(By.id("twotabsearchtextbox")).sendKeys("java");
+        driver.findElement(By.xpath("//div[@id = 'nav-flyout-searchAjax']/div[4]/div/div")).click();
     }
 
 
